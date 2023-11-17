@@ -19,3 +19,11 @@ int inserirFim(produto* p, estoque* e) {
     e->qtdeProdutos++;
     return 1;
 }
+
+int inserirPosicao(produto* p, int pos, estoque* e){
+
+}
+
+void listar(estoque *e){
+
+}
