@@ -1,5 +1,5 @@
 #pragma once
-//Definição das estruturas utilizadas
+//DefiniÃ§Ã£o das estruturas utilizadas
 typedef struct {
     int id;
     char descricao[50];
@@ -13,24 +13,24 @@ typedef struct {
     int qtdeProdutos;
 } estoque;
 
-//Protótipo das funções
+//ProtÃ³tipo das funÃ§Ãµes
 
-//Funções de inserção e remoção retornam 0 ou 1, dependendo da
-//inserção ser realizada com sucesso, ou não.
+//FunÃ§Ãµes de inserÃ§Ã£o e remoÃ§Ã£o retornam 0 ou 1, dependendo da
+//inserÃ§Ã£o ser realizada com sucesso, ou nÃ£o.
 int inserirInicio(produto* p, estoque* e);
 
 int inserirFim(produto* p, estoque* e);
 
 int inserirPosicao(produto* p, int pos, estoque* e);
 
-void listar();
+void listar(estoque* e);
 
 int removerPosicao(int pos, estoque* e);
 
 int removerValor(int id, estoque* e);
 
-//Retorna a posição em que o item de ID id está
-//ou -1, caso o id não seja encontrado.
+//Retorna a posiÃ§Ã£o em que o item de ID id estÃ¡
+//ou -1, caso o id nÃ£o seja encontrado.
 int procurar(int id, estoque* e);
 
 int tamanho(estoque* e);
