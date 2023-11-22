@@ -5,7 +5,7 @@
 int inserirInicio(produto* p, estoque* e) { //NÃO ESTÁ FUNCIONANDO
     e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
     int i;
-    for (i = e->qtdeProdutos + 1; i > 0; i--) {
+    for (i = e->qtdeProdutos; i > 0; i--) {
         e->produtos[i] = e->produtos[i - 1];
     }
     e->produtos[0] = *p;
