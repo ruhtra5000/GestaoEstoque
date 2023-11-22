@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "estoque.h"
 
-int inserirInicio(produto* p, estoque* e) {
-    e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto*));
+int inserirInicio(produto* p, estoque* e) { //NÃO ESTÁ FUNCIONANDO
+    e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
     int i;
     for (i = e->qtdeProdutos + 1; i > 0; i--) {
         e->produtos[i] = e->produtos[i - 1];
@@ -14,7 +14,7 @@ int inserirInicio(produto* p, estoque* e) {
 }
 
 int inserirFim(produto* p, estoque* e) {
-    e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto*));
+    e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
     e->produtos[e->qtdeProdutos] = *p;
     e->qtdeProdutos++;
     return 1;

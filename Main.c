@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include "Estoque.h"
 
-produto* receberDadosProduto();
-
 int main() {
     //Estoque
     estoque est;
-    est.produtos = malloc(sizeof(produto*));
+    est.produtos = malloc(sizeof(produto));
     est.qtdeProdutos = 0;
     
     //Variaveis do menu
@@ -25,25 +23,28 @@ int main() {
                 system("cls");
                 printf("1. Inserir no inicio\n2. Inserir no fim\n3. Inserir em uma posicao\n");
                 scanf("%d", &opc2);
+
+                //Capturando dados do produto
+                produto prod;
+                printf("Informe o ID do produto: ");
+                scanf("%d", &prod.id);
+                printf("Informe a descricao do produto: ");
+                scanf(" %[^\n]s", prod.descricao);
+                printf("Informe a categoria do produto: ");
+                scanf("%d", &prod.categoria);
+                printf("Informe o valor do produto: ");
+                scanf("%f", &prod.valor);
+                printf("Informe o quantidade do produto: ");
+                scanf("%d", &prod.quantidade);
+
                 if(opc2 == 1){
-                    inserirInicio(receberDadosProduto(), &est);
+                    inserirInicio(&prod, &est);
                 }
                 else if(opc2 == 2){
-                    produto prod;
-                    printf("Informe o ID do produto:");
-                    scanf("%d", &prod.id);
-                    printf("Informe a descricao do produto:");
-                    scanf(" %[^\n]s", prod.descricao);
-                    printf("Informe a categoria do produto:");
-                    scanf("%d", &prod.categoria);
-                    printf("Informe o valor do produto:");
-                    scanf("%f", &prod.valor);
-                    printf("Informe o quantidade do produto:");
-                    scanf("%d", &prod.quantidade);
                     inserirFim(&prod, &est);
                 }
                 else if(opc2 == 3){
-                    inserirPosicao(receberDadosProduto(), 0, &est); //MUDAR
+                    inserirPosicao(&prod, 0, &est); //MUDAR
                 }
                 else {
                     printf("Comando invalido");
@@ -75,7 +76,7 @@ int main() {
     }
 
     /*
-    - Ver o problema de memoria
+    - Finalizar a inserção no inicio
     - Finalizar o menu
     - Finalizar as funções
     - Checar as funções de remoção
@@ -83,20 +84,4 @@ int main() {
 
     return 0;
 }
-
-produto* receberDadosProduto(){
-    produto prod;
-    printf("Informe o ID do produto:");
-    scanf("%d", &prod.id);
-    printf("Informe a descricao do produto:");
-    scanf(" %[^\n]s", prod.descricao);
-    printf("Informe a categoria do produto:");
-    scanf("%d", &prod.categoria);
-    printf("Informe o valor do produto:");
-    scanf("%f", &prod.valor);
-    printf("Informe o quantidade do produto:");
-    scanf("%d", &prod.quantidade);
-    return &prod;
-}
-
 
