@@ -7,9 +7,10 @@ int main() {
     estoque est;
     est.produtos = malloc(sizeof(produto));
     est.qtdeProdutos = 0;
+    entrar(&est);
     
     //Variaveis do menu
-    int opc = 0, opc2 = 0; 
+    int opc = 0, opc2 = 0, posicao = 0, tmp = 0; 
     
     //Menu
     while(opc != 6){
@@ -37,36 +38,76 @@ int main() {
                 printf("Informe o quantidade do produto: ");
                 scanf("%d", &prod.quantidade);
 
-                if(opc2 == 1){
-                    inserirInicio(&prod, &est);
+                tmp = 0;
+                if (opc2 == 1) {
+                    tmp = inserirInicio(&prod, &est);
                 }
-                else if(opc2 == 2){
-                    inserirFim(&prod, &est);
+                else if (opc2 == 2) {
+                    tmp = inserirFim(&prod, &est);
                 }
                 else if(opc2 == 3){
-                    inserirPosicao(&prod, 0, &est); //MUDAR
+                    printf("Informe a posicao para adicionar: ");
+                    scanf("%d", &posicao);
+                    tmp = inserirPosicao(&prod, posicao, &est);
                 }
                 else {
                     printf("Comando invalido");
-                    system("pause");
                 }
+
+                //Checagem de inserção realizada
+                if (tmp == 1) {
+                    printf("\nInsercao realizada com sucesso!\n");
+                }
+                system("pause");
             break;
             case 2:
                 listar(&est);
             break;
             case 3:
                 system("cls");
-                printf("1. Remover por valor\n2. Remover por id\n");
+                printf("1. Remover por posicao\n2. Remover por id\n");
                 scanf("%d", &opc2);
+                if (opc2 == 1) {
+                    printf("\nInforme a posicao que deseja remover: ");
+                    scanf("%d", &posicao);
+                    tmp = removerPosicao(posicao, &est);
+                }
+                else if (opc2 == 2) {
+                    printf("\nInforme o ID que deseja remover: ");
+                    scanf("%d", &posicao);//posicao está assumindo o valor do ID
+                    tmp = removerValor(posicao, &est);
+                }
+                else {
+                    printf("Comando invalido\n");
+                }
+
+                //Checagem de remoção realizada
+                if (tmp == 1) {
+                    printf("Remocao realizada com sucesso!\n");
+                }
+                system("pause");
             break;
             case 4:
-            
+                system("cls");
+                printf("Informe o ID que deseja buscar: ");
+                scanf("%d", &posicao);//posicao está assumindo o valor de ID
+                tmp = procurar(posicao, &est);
+                
+                if (tmp == -1) {
+                    printf("O ID especificado nao existe!\n");
+                }
+                else {
+                    printf("O elemento com ID %d se encontra na posicao %d\n", posicao, tmp);
+                }
+                system("pause");
             break;
             case 5:
-            
+                system("cls");
+                printf("O estoque contem %d produtos\n", tamanho(&est));
+                system("pause");
             break;
             case 6:
-                
+                sair(&est);
             break;
             default:
                 printf("Comando inválido\n");
@@ -76,10 +117,7 @@ int main() {
     }
 
     /*
-    - Finalizar a inserção no inicio
-    - Finalizar o menu
-    - Finalizar as funções
-    - Checar as funções de remoção
+    - Criar as funções para salvar os dados em arquivo
     */
 
     return 0;

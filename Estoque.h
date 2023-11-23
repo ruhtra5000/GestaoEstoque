@@ -29,10 +29,10 @@ int removerPosicao(int pos, estoque* e);
 
 int removerValor(int id, estoque* e);
 
-//Retorna a posição em que o item de ID id está
-//ou -1, caso o id não seja encontrado.
 int procurar(int id, estoque* e);
 
 int tamanho(estoque* e);
 
-void sair();
+void entrar(estoque *e);
+
+void sair(estoque* e);
