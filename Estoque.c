@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "estoque.h"
 
 int inserirInicio(produto* p, estoque* e) {
@@ -8,7 +9,6 @@ int inserirInicio(produto* p, estoque* e) {
         return 0;
     }
     else {
-        //e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
         realocarMemoria(e);
         int i;
         for (i = e->qtdeProdutos; i > 0; i--) {
@@ -26,7 +26,6 @@ int inserirFim(produto* p, estoque* e) {
         return 0;
     }
     else {
-        //e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
         realocarMemoria(e);
         e->produtos[e->qtdeProdutos] = *p;
         e->qtdeProdutos++;
@@ -90,7 +89,6 @@ int removerPosicao(int pos, estoque* e) {
                 e->produtos[i] = e->produtos[i + 1];
             }
         }
-        //e->produtos = realloc(e->produtos, (e->qtdeProdutos - 1) * sizeof(produto));
         e->qtdeProdutos--;
         return 1;
     }
@@ -142,7 +140,7 @@ void realocarMemoria(estoque* e) {
 }
 
 //Carregar os dados do arquivo de texto
-void entrar(estoque* e) {
+void carregarDados(estoque* e) {
     FILE* arquivo;
     arquivo = fopen("baseDeDados.txt", "r");
     if (arquivo == NULL) {
@@ -150,16 +148,56 @@ void entrar(estoque* e) {
         system("pause");
     }
     else {
-
+        char linha[50]; //Recebe a linha atual.
+        int i = 1; //Indica o dado da linha atual (id, descrição, categoria...).
+        produto* temp = malloc(sizeof(produto));
+        while (fscanf(arquivo, "%s", linha) != EOF) {
+            if (i == 1) {
+                //Checa se é necessário realocar memoria, cria um novo produto, 
+                //associa seu id, e passa seu endereço para o ponteiro temp.
+                realocarMemoria(e);
+                produto novo;
+                novo.id = atoi(linha);
+                temp = &novo;
+                i++;
+            }
+            else if (i == 2) {
+                //Associa a descrição do produto.
+                strcpy((*temp).descricao, linha);
+                i++;
+            }
+            else if (i == 3) {
+                //Associa a categoria do produto.
+                (*temp).categoria = atoi(linha);
+                i++;
+            }
+            else if (i == 4) {
+                //Associa o valor do produto.
+                (*temp).valor = atof(linha);
+                i++;
+            }
+            else if (i == 5) {
+                //Associa a quantidade do produto, adiciona o produto no estoque,
+                //e aumenta a quantidade de produtos em estoque.
+                (*temp).quantidade = atoi(linha);
+                e->produtos[e->qtdeProdutos] = *temp;
+                e->qtdeProdutos++;
+                i = 1;
+            }
+        }
+        fclose(arquivo);
     }
-
-    fclose(arquivo);
 }
 
 //Salvar os dados no arquivo de texto
-void sair(estoque* e) {
+void salvarDados(estoque* e) {
     FILE* arquivo;
     arquivo = fopen("baseDeDados.txt", "w");
-    fprintf(arquivo, "teste massa");
+    int i;
+    for (i = 0; i < e->qtdeProdutos; i++) {
+        //Escreve cada dado de cada produto em uma linha separada.
+        fprintf(arquivo, "%d\n%s\n%d\n%f\n%d\n", e->produtos[i].id, e->produtos[i].descricao, 
+            e->produtos[i].categoria, e->produtos[i].valor, e->produtos[i].quantidade);
+    }
     fclose(arquivo);
 }

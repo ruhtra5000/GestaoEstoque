@@ -35,6 +35,6 @@ int tamanho(estoque* e);
 
 void realocarMemoria(estoque* e);
 
-void entrar(estoque *e);
+void carregarDados(estoque *e);
 
-void sair(estoque* e);
+void salvarDados(estoque* e);

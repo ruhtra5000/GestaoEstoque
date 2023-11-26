@@ -7,7 +7,7 @@ int main() {
     estoque est;
     est.produtos = malloc(10 * sizeof(produto));
     est.qtdeProdutos = 0;
-    entrar(&est);
+    carregarDados(&est);
     
     //Variaveis do menu
     int opc = 0, opc2 = 0, posicao = 0, tmp = 0; 
@@ -57,6 +57,7 @@ int main() {
                 //Checagem de inserção realizada
                 if (tmp == 1) {
                     printf("\nInsercao realizada com sucesso!\n");
+                    salvarDados(&est);
                 }
                 system("pause");
             break;
@@ -84,6 +85,7 @@ int main() {
                 //Checagem de remoção realizada
                 if (tmp == 1) {
                     printf("Remocao realizada com sucesso!\n");
+                    salvarDados(&est);
                 }
                 system("pause");
             break;
@@ -107,7 +109,7 @@ int main() {
                 system("pause");
             break;
             case 6:
-                sair(&est);
+                salvarDados(&est);
             break;
             default:
                 printf("Comando invalido\n");
