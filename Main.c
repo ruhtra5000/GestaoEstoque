@@ -5,7 +5,7 @@
 int main() {
     //Estoque
     estoque est;
-    est.produtos = malloc(sizeof(produto));
+    est.produtos = malloc(10 * sizeof(produto));
     est.qtdeProdutos = 0;
     entrar(&est);
     
@@ -110,7 +110,7 @@ int main() {
                 sair(&est);
             break;
             default:
-                printf("Comando inválido\n");
+                printf("Comando invalido\n");
                 system("pause");
             break;
         } 

@@ -33,6 +33,8 @@ int procurar(int id, estoque* e);
 
 int tamanho(estoque* e);
 
+void realocarMemoria(estoque* e);
+
 void entrar(estoque *e);
 
 void sair(estoque* e);

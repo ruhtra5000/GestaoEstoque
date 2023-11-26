@@ -8,7 +8,8 @@ int inserirInicio(produto* p, estoque* e) {
         return 0;
     }
     else {
-        e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
+        //e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
+        realocarMemoria(e);
         int i;
         for (i = e->qtdeProdutos; i > 0; i--) {
             e->produtos[i] = e->produtos[i - 1];
@@ -25,7 +26,8 @@ int inserirFim(produto* p, estoque* e) {
         return 0;
     }
     else {
-        e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
+        //e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
+        realocarMemoria(e);
         e->produtos[e->qtdeProdutos] = *p;
         e->qtdeProdutos++;
         return 1;
@@ -42,7 +44,7 @@ int inserirPosicao(produto* p, int pos, estoque* e){
         return 0;
     }
     else {
-        e->produtos = realloc(e->produtos, (e->qtdeProdutos + 1) * sizeof(produto));
+        realocarMemoria(e);
         int i;
         for (i = e->qtdeProdutos; i > pos; i--) {
             e->produtos[i] = e->produtos[i - 1];
@@ -88,7 +90,7 @@ int removerPosicao(int pos, estoque* e) {
                 e->produtos[i] = e->produtos[i + 1];
             }
         }
-        e->produtos = realloc(e->produtos, (e->qtdeProdutos - 1) * sizeof(produto));
+        //e->produtos = realloc(e->produtos, (e->qtdeProdutos - 1) * sizeof(produto));
         e->qtdeProdutos--;
         return 1;
     }
@@ -123,16 +125,41 @@ int procurar(int id, estoque* e) {
     return -1;
 }
 
+//Retorna o tamanho do estoque
 int tamanho(estoque* e) {
     return e->qtdeProdutos;
 }
 
+//Aloca memoria de 10 em 10
+void realocarMemoria(estoque* e) {
+    int i;
+    for (i = 10; i <= (e->qtdeProdutos + 1); i += 10) {
+        if ((e->qtdeProdutos + 1)  == i) {
+            e->produtos = realloc(e->produtos, (i + 10) * sizeof(produto));
+            return;
+        }
+    }
+}
+
 //Carregar os dados do arquivo de texto
 void entrar(estoque* e) {
+    FILE* arquivo;
+    arquivo = fopen("baseDeDados.txt", "r");
+    if (arquivo == NULL) {
+        printf("\nA base de dados nao foi encontrada!\n");
+        system("pause");
+    }
+    else {
 
+    }
+
+    fclose(arquivo);
 }
 
 //Salvar os dados no arquivo de texto
 void sair(estoque* e) {
-
+    FILE* arquivo;
+    arquivo = fopen("baseDeDados.txt", "w");
+    fprintf(arquivo, "teste massa");
+    fclose(arquivo);
 }
