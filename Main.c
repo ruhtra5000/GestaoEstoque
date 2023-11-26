@@ -118,10 +118,6 @@ int main() {
         } 
     }
 
-    /*
-    - Criar as funções para salvar os dados em arquivo
-    */
-
     return 0;
 }
 
