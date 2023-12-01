@@ -25,6 +25,12 @@ int inserirPosicao(produto* p, int pos, estoque* e);
 
 void listar(estoque* e);
 
+void listarCategoria(estoque* e, int categoria);
+
+void listarPreco(estoque* e, float pInferior, float pSuperior);
+
+void imprimirDadosProduto(produto p);
+
 int removerPosicao(int pos, estoque* e);
 
 int removerValor(int id, estoque* e);

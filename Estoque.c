@@ -60,17 +60,56 @@ void listar(estoque *e){
         system("pause");
     }
     else {
+        system("cls");
         int i;
         for (i = 0; i < e->qtdeProdutos; i++) {
-            printf("ID: %d\n", e->produtos[i].id);
-            printf("Descricao: %s\n", e->produtos[i].descricao);
-            printf("Categoria: %d\n", e->produtos[i].categoria);
-            printf("Valor: R$%.2f\n", e->produtos[i].valor);
-            printf("Quantidade: %d\n", e->produtos[i].quantidade);
-            printf("=-=-=-=-=-=-=-=-=-=-=-=\n");
+            imprimirDadosProduto(e->produtos[i]);
         }
         system("pause");
     }
+}
+
+void listarCategoria(estoque* e, int categoria) {
+    if (e->qtdeProdutos < 1) {
+        printf("Sem produtos cadastrados!\n");
+        system("pause");
+    }
+    else {
+        system("cls");
+        int i;
+        for (i = 0; i < e->qtdeProdutos; i++) {
+            if (e->produtos[i].categoria == categoria) {
+                imprimirDadosProduto(e->produtos[i]);
+            }
+        }
+        system("pause");
+    }
+}
+
+void listarPreco(estoque* e, float pInferior, float pSuperior) {
+    if (e->qtdeProdutos < 1) {
+        printf("Sem produtos cadastrados!\n");
+        system("pause");
+    }
+    else {
+        system("cls");
+        int i;
+        for (i = 0; i < e->qtdeProdutos; i++) {
+            if (e->produtos[i].valor > pInferior && e->produtos[i].valor < pSuperior) {
+                imprimirDadosProduto(e->produtos[i]);
+            }
+        }
+        system("pause");
+    }
+}
+
+void imprimirDadosProduto(produto p) {
+    printf("ID: %d\n", p.id);
+    printf("Descricao: %s\n", p.descricao);
+    printf("Categoria: %d\n", p.categoria);
+    printf("Valor: R$%.2f\n", p.valor);
+    printf("Quantidade: %d\n", p.quantidade);
+    printf("=-=-=-=-=-=-=-=-=-=-=-=\n");
 }
 
 int removerPosicao(int pos, estoque* e) {

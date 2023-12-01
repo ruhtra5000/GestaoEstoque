@@ -62,7 +62,29 @@ int main() {
                 system("pause");
             break;
             case 2:
-                listar(&est);
+                system("cls");
+                printf("1. Listar todos\n2. Listar por categoria\n3. Listar por preco\n");
+                scanf("%d", &opc2);
+                if (opc2 == 1) {
+                    listar(&est);
+                }
+                else if (opc2 == 2) {
+                    printf("\nInforme a categoria que deseja listar: ");
+                    scanf("%d", &posicao);//posicao esta assumindo o valor da categoria
+                    listarCategoria(&est, posicao);
+                }
+                else if (opc2 == 3) {
+                    float p1, p2;
+                    printf("\nInforme o valor inferior: ");
+                    scanf("%f", &p1);
+                    printf("\nInforme o valor superior: ");
+                    scanf("%f", &p2);
+                    listarPreco(&est, p1, p2);
+                }
+                else {
+                    printf("Comando invalido\n");
+                    system("pause");
+                }
             break;
             case 3:
                 system("cls");
